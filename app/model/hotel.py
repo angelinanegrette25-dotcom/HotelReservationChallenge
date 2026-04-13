@@ -127,3 +127,28 @@ class Hotel:
         room.book(new_reservation.id, check_in, check_out)
         self.reservations[new_reservation.id] = new_reservation
         return new_reservation.id
+
+    def add_guest(self, reservation_id: str, name: str, email: str, type_: str):
+        if reservation_id not in self.reservations:
+            return reservation_not_found_error()
+
+        reservation = self.reservations[reservation_id]
+        reservation.add_guest(name, email, type_)
+
+    def find_available_rooms(self, check_in: date, check_out: date) -> list[int]:
+        available_room_numbers = []
+
+        for number, room in self.rooms.items():
+            is_available = True
+            current_date = check_in
+
+            # Verificar rango [check_in, check_out)
+            while current_date < check_out:
+                if room.availability.get(current_date) is not None:
+                    is_available = False
+                    break
+                current_date += (check_out - check_in)
+            if is_available:
+                available_room_numbers.append(number)
+
+            return available_room_numbers
