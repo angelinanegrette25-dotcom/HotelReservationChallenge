@@ -13,3 +13,12 @@ class Guest:
 
     def __str__(self) -> str:
         return f"Guest {self.name} ({self.email}) of type {self.type_}"
+
+
+class Reservation:
+    guest_name: str
+    description: str
+    check_in: date
+    check_out: date
+    guests: List[Guest] = field(init=False, default_factory=list)
+    id: str = field(default_factory=generate_unique_id)
