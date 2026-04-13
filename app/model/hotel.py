@@ -7,13 +7,3 @@ from app.services.util import (generate_unique_id, date_lower_than_today_error,
     room_not_found_error, room_already_exists_error)
 
 
-# TODO: Implement Guest class here
-
-
-# TODO: Implement Reservation class here
-
-
-# TODO: Implement Room class here
-
-
-# TODO: Implement Hotel class here
