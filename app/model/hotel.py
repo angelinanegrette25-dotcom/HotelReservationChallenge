@@ -1,9 +1,17 @@
 from dataclasses import dataclass, field
-from datetime import date
 from typing import List
-from app.services.util import generate_unique_id, guest_not_found_error
+from app.services.util import generate_unique_id, guest_not_found_error, reservation_not_found_error
 from datetime import datetime, timedelta, date
 from app.services.util import room_not_available_error
+from datetime import datetime, date
+from .room import Room
+from .reservation import Reservation
+from app.services.util import (
+    room_already_exists_error,
+    room_not_found_error,
+    date_lower_than_today_error,
+    reservation_not_found_error
+)
 
 class Guest:
     # Variables de clase (Constantes)
@@ -94,3 +102,17 @@ class Room:
             else:
                 self.availability[current] = reservation_id
             current += timedelta(days=1)
+
+
+class Hotel:
+    def __init__(self):
+        self.rooms: dict[int, Room] = {}
+        self.reservations: dict[str, Reservation] = {}
+
+    def add_room(self, number: int, type_: str, price_per_night: float):
+        if number in self.rooms:
+            return room_already_exists_error()
+
+        new_room = Room(number, type_, price_per_night)
+        self.rooms[number] = new_room
+
