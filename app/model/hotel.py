@@ -22,3 +22,13 @@ class Reservation:
     check_out: date
     guests: List[Guest] = field(init=False, default_factory=list)
     id: str = field(default_factory=generate_unique_id)
+
+    def add_guest(self, name: str, email: str, type_: str = Guest.REGULAR):
+        new_guest = Guest(name=name, email=email, type_=type_)
+        self.guests.append(new_guest)
+
+    def delete_guest(self, guest_index: int):
+        if 0 <= guest_index < len(self.guests):
+            self.guests.pop(guest_index)
+        else:
+            guest_not_found_error()
