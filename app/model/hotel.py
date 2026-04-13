@@ -7,12 +7,8 @@ class Guest:
     # Variables de clase (Constantes)
     REGULAR: str = "regular"
     VIP: str = "vip"
-
-    # Atributos obligatorios
     name: str
     email: str
-
-    # Atributo opcional con valor por defecto de la clase
     type_: str = REGULAR
 
     def __str__(self) -> str:
