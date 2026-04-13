@@ -52,3 +52,9 @@ class Room:
         self.price_per_night = price_per_night
         self.availability: dict[date, str | None] = {}
         self._init_availability()
+
+    def _init_availability(self):
+        current_date = datetime.now().date()
+        for i in range(365):
+            future_date = current_date + timedelta(days=i)
+            self.availability[future_date] = None
