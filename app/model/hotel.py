@@ -32,3 +32,7 @@ class Reservation:
             self.guests.pop(guest_index)
         else:
             guest_not_found_error()
+
+    def __len__(self) -> int:
+        """Retorna la duración de la estadía en noches."""
+        return (self.check_out - self.check_in).days
