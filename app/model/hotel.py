@@ -58,3 +58,17 @@ class Room:
         for i in range(365):
             future_date = current_date + timedelta(days=i)
             self.availability[future_date] = None
+
+    def book(self, reservation_id: str, check_in: date, check_out: date):
+        target_days = []
+        current = check_in
+        while current < check_out:
+            target_days.append(current)
+            current += timedelta(days=1)
+
+        for day in target_days:
+            if self.availability.get(day) is not None:
+                return room_not_available_error()
+
+        for day in target_days:
+            self.availability[day] = reservation_id
