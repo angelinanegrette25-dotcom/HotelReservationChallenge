@@ -116,3 +116,14 @@ class Hotel:
         new_room = Room(number, type_, price_per_night)
         self.rooms[number] = new_room
 
+    def make_reservation(self, guest_name: str, description: str, room_number: int, check_in: date,
+                         check_out: date) -> str:
+        if check_in < datetime.now().date():
+            return date_lower_than_today_error()
+        if room_number not in self.rooms:
+            return room_not_found_error()
+        new_reservation = Reservation(guest_name, description, check_in, check_out)
+        room = self.rooms[room_number]
+        room.book(new_reservation.id, check_in, check_out)
+        self.reservations[new_reservation.id] = new_reservation
+        return new_reservation.id
