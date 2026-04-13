@@ -2,6 +2,8 @@ from dataclasses import dataclass, field
 from datetime import date
 from typing import List
 from app.services.util import generate_unique_id, guest_not_found_error
+from datetime import datetime, timedelta, date
+from app.services.util import room_not_available_error
 
 class Guest:
     # Variables de clase (Constantes)
@@ -43,3 +45,10 @@ class Reservation:
             f"Description: {self.description}\n"
             f"Dates: {self.check_in} - {self.check_out}"
         )
+class Room:
+    def __init__(self, number: int, type_: str, price_per_night: float):
+        self.number = number
+        self.type_ = type_
+        self.price_per_night = price_per_night
+        self.availability: dict[date, str | None] = {}
+        self._init_availability()
